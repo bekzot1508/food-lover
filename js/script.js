@@ -1,4 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
+
+    // *************  TABS  *******************
     const tabs = document.querySelectorAll(".tabheader__item")
         tabContents = document.querySelectorAll(".tab_content")
         tabParents = document.querySelector('.tabheader__items')
@@ -27,11 +29,82 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (target && target.classList.contains('tabheader__item')) {
             tabs.forEach((tab, index) => {
-              if (target === tab) {
+                if (target === tab) {
                 hideTabContents()
                 showTabContent(index)
-              }
+                }
             })
         }
     })
+
+     // *************  loader  *******************
+    const loaderWrapper = document.querySelector(".loader-wrapper");
+
+    setTimeout( () => {
+        loaderWrapper.style.display = 'none'
+    },1500)
+
+
+     // *************  Timer  *******************
+    const deadline = '2024-03-27'
+
+    function getTimeRemaining (endTime) {
+        let days, hours, minutes, seconds
+        const time = Date.parse(endTime) - Date.parse(new Date())
+
+        if (time <= 0) {
+            days = 0
+            hours = 0
+            minutes = 0
+            seconds = 0
+        } else {
+            days = Math.floor(time / (1000 * 60 * 60 * 24))
+            hours = Math.floor((time / (1000 * 60 * 60)) % 24)
+            minutes = Math.floor((time / (1000 * 60)) % 60)
+            seconds = Math.floor((time / (1000)) % 60)
+        }
+
+        return { 
+            totelTime: time,
+            days,
+            hours,
+            minutes,
+            seconds,
+        }
+    }
+
+    function formatNumber (number) {
+        if (number >= 0 && number < 10) {
+            return `0${number}`
+        } else {
+            return number
+        }
+    }
+
+    function setClock (selector, endTime) {
+        const timer = document.querySelector(selector),
+
+        days = timer.querySelector('#days'),
+        hours = timer.querySelector('#hours'),
+        minutes = timer.querySelector('#minutes'),
+        seconds = timer.querySelector('#seconds'),
+        timeInterval = setInterval(updateClock, 1000)
+        updateClock()
+
+    function updateClock () {
+        const time = getTimeRemaining (endTime)
+
+        days.textContent = formatNumber (time.days)
+        hours.textContent = formatNumber (time.hours)
+        minutes.textContent = formatNumber (time.minutes)
+        seconds.textContent = formatNumber (time.seconds)
+
+        if (time.totelTime <= 0) {
+            clearInterval(timeInterval)
+        }
+    }
+
+    }
+
+    setClock('.timer', deadline)
 })
