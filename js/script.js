@@ -107,4 +107,155 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadline)
+
+
+    // *************  Modal  *******************
+    const modalOpenBtn = document.querySelectorAll('[data-modal]'),
+    modal = document.querySelector('.modal'),
+    modalCloseBtn = document.querySelector('[data-modal-close]')
+    modalContent = document.querySelector('.modal__content')
+
+    function openModal() {
+        modal.classList.add('show', 'fade')
+        modal.classList.remove('hide')
+        modalContent.classList.add('modal_fade')
+        document.body.style.overflow = "hidden"  
+        clearInterval(modalTimerId)
+    }
+
+    function closeModal() {
+        modal.classList.add('remove')
+        modal.classList.remove('show')
+        document.body.style.overflow = ""
+    }
+
+    modalOpenBtn.forEach(btn  => {
+        btn.addEventListener('click', () => {
+            openModal()
+        })
+    })
+
+    modalCloseBtn.addEventListener('click', () => {
+        closeModal()
+    })
+
+    modal.addEventListener('click', (evt) => {
+        console.log(evt);
+        if (evt.target === modal) {
+            closeModal()
+        } 
+    })
+
+    document.addEventListener("keydown", (event) => {
+        if (event.code === 'Escape' && modal.classList.contains("show")) {
+            closeModal()
+        }
+    })
+
+    const modalTimerId = setTimeout(openModal, 4000);
+
+
+
+    // *************  Class  *******************
+    class OfferMenu {
+        constructor (src, alt, title, descr, discount, sale, parentSelector) {
+            this.src = src
+            this.alt = alt
+            this.title = title
+            this.descr = descr
+            this.discount = discount
+            this.sale = sale
+            this.parent = document.querySelector(parentSelector)
+            this.formatToUSD ()
+        }
+
+        formatToUSD () {
+            this.discount = this.discount.toLocaleString("en-US", {style:"currency", currency:"USD"});
+            this.sale = this.sale.toLocaleString("en-US", {style:"currency", currency:"USD"});
+        }
+
+        render () {
+            const element = document.createElement("div")
+            element.innerHTML = `
+            <img src="${this.src}" alt="${this.alt}">
+            <div>
+                <h3>${this.title}</h3>
+                <p>${this.descr}</p>
+                <p><del>${this.discount}</del> <span class="primary-text">${this.sale}</span></p>
+            </div>
+            `
+
+            this.parent.append(element)
+        }
+    }
+
+    const offers = [
+        {
+            src: "./img/offer1.png",
+            alt:  "Quattro Pasta",
+            title: "Quattro Pasta",
+            descr: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
+            discount: 55,
+            sale: 20,
+            parentSelector: ".offers-items"
+        },
+        {
+            src: "./img/offer2.png",
+            alt:  "Vegertarian Pasta",
+            title: "Vegertarian Pasta",
+            descr: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
+            discount: 65,
+            sale: 25,
+            parentSelector: ".offers-items"
+        },
+        {
+            src: "./img/offer3.png",
+            alt:  "Quattro Pasta",
+            title: "Quattro Pasta",
+            descr: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
+            discount: 25,
+            sale: 15,
+            parentSelector: ".offers-items"
+        }
+    ]
+
+    offers.forEach(offer => {
+        const {src, alt, title, descr, discount, sale, parentSelector} = offer
+        new OfferMenu(src, alt, title, descr, discount, sale, parentSelector).render()
+    })
+
+
+
+    
+    // const firstOffer = new OfferMenu(
+    //     "./img/offer1.png",
+    //     "Vegertarian Pasta",
+    //     "Vegertarian Pasta",
+    //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
+    //     65,
+    //     25,
+    //     ".offers-items"
+    // )
+    // const secondOffer = new OfferMenu(
+    //     "./img/offer2.png",
+    //     "Vegertarian Pasta",
+    //     "Vegertarian Pasta",
+    //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
+    //     65,
+    //     25,
+    //     ".offers-items"
+    // )
+    // const thirdOffer = new OfferMenu(
+    //     "./img/offer3.png",
+    //     "Quattro Pasta",
+    //     "Quattro Pasta",
+    //     "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
+    //     25,
+    //     15,
+    //     ".offers-items"
+    // )
+
+    // firstOffer.render()
+    // secondOffer.render()
+    // thirdOffer.render()
 })

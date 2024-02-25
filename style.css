@@ -877,6 +877,19 @@ form button {
 		opacity: 1;
 	}
 }
+.modal_fade {
+	animation-name: modalFade;
+	animation-duration: 1s;
+}
+
+@keyframes modalFade {
+	from {
+		transform: translateY(-100px);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
 
 .loader-wrapper {
 	width: 100%;

@@ -41,7 +41,7 @@
       <p>Here you can find Most delicacies food in the world</p>
       <div class="btn__group">
         <button class="button arrow">Read more</button>
-        <button class="button phone">Contact Us</button>
+        <button data-modal class="button phone">Contact Us</button>
       </div>
     </div>
   </header>
@@ -152,30 +152,7 @@
           <p>More than 25+ years of experience</p>
         </div>
         <div class="offers-items">
-          <div>
-            <img src="./img/offer1.png" alt="Quattro Pasta">
-            <div>
-              <h3>Quattro Pasta</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.</p>
-              <p><del>$ 55.00</del> <span class="primary-text">$18.00</span></p>
-            </div>
-          </div>
-          <div>
-            <img src="./img/offer2.png" alt="Vegertarian Pasta">
-            <div>
-              <h3>Vegertarian Pasta</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.</p>
-              <p><del>$ 55.00</del> <span class="primary-text">$18.00</span></p>
-            </div>
-          </div>
-          <div>
-            <img src="./img/offer3.png" alt="Quattro Pasta">
-            <div>
-              <h3>Gluten-Free Pasta</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.</p>
-              <p><del>$ 55.00</del> <span class="primary-text">$18.00</span></p>
-            </div>
-          </div>
+          <!-- there are children in js -->
         </div>
       </div>
     </section>
@@ -280,7 +257,7 @@
         <div style="display: flex; justify-content: center;">
           <div class="btn__group">
             <button class="button arrow">Read more</button>
-            <button class="button phone">Contact Us</button>
+            <button data-modal class="button phone">Contact Us</button>
           </div>
         </div>
       </div>
@@ -351,7 +328,7 @@
                 veritatis corporis, est dicta repellat cupiditate. Cupiditate corrupti illum, necessitatibus saepe non
                 ab placeat fugiat?
               </p>
-              <button class="btn btn-third"><a href="#">CONTACT</a></button>
+              <button data-modal class="btn btn-third"><a href="#">CONTACT</a></button>
             </div>
           </div>
         </div>
@@ -413,7 +390,7 @@
     <div class="modal__dialog">
       <div class="modal__content">
         <form action="#">
-          <div class="modal__close">&times;</div>
+          <div data-modal-close class="modal__close">&times;</div>
           <div class="modal__title">
             Contact Us!
           </div>
