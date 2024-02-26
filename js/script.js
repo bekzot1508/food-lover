@@ -140,7 +140,6 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     modal.addEventListener('click', (evt) => {
-        console.log(evt);
         if (evt.target === modal) {
             closeModal()
         } 
@@ -258,4 +257,49 @@ window.addEventListener('DOMContentLoaded', () => {
     // firstOffer.render()
     // secondOffer.render()
     // thirdOffer.render()
+
+
+
+    // FORM 
+    const form = document.querySelector('form'),
+        telegramTokenBOt = "6862412072:AAGWRiPkQOq7299xrthLt51G6wTK512Bqo4",
+        chatID = "1660712160"
+
+    const message = {
+        loading: "loading...",
+        success: "thank you for contacting with us",
+        failure: "something went wrong"
+    }    
+
+    form.addEventListener('submit', event => {
+        event.preventDefault()
+        const statusMessage = document.createElement("div")
+        statusMessage.textContent = message.loading
+        form.append(statusMessage)
+
+
+        const formData = new FormData(form) 
+
+        const object = {} 
+        formData.forEach((value, key) =>{
+            object[key] = value
+        })
+
+        fetch(`https://api.telegram.org/bot${telegramTokenBOt}/sendMessage`, {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body: JSON.stringify({
+                chat_id: chatID,
+                text: `Name: ${object.name}. phone: ${object.phone}`
+            })
+        })
+        .then(() => statusMessage.textContent = message.success)
+        .catch(() => statusMessage.textContent = message.failure)
+        .finally(() => {
+            setTimeout(() =>{
+                statusMessage.remove()
+                form.reset()
+            }, 2000)
+        })
+    })
 })
